@@ -1,30 +1,9 @@
 {
-  "version": "0.2.0",
-  "configurations": [
-    {
-      "type": "node",
-      "request": "launch",
-      "name": "Debug NestJS (Nest CLI)",
-      "args": ["start", "--debug", "--watch"],
-      "executable": "npm",
-      "runtimeExecutable": "npm",
-      "runtimeArgs": ["run-script"],
-      "console": "integratedTerminal",
-      "restart": true,
-      "sourceMaps": true,
-      "protocol": "inspector"
-    },
-    {
-      "type": "node",
-      "request": "launch",
-      "name": "Debug NestJS (Direct ts-node)",
-      "runtimeArgs": ["-r", "ts-node/register", "-r", "tsconfig-paths/register"],
-      "args": ["${workspaceFolder}/src/main.ts"],
-      "autoAttachChildProcesses": true,
-      "restart": true,
-      "sourceMaps": true,
-      "smartStep": true,
-      "console": "integratedTerminal"
-    }
-  ]
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  },
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "eslint.workingDirectories": [{ "mode": "auto" }]
 }
