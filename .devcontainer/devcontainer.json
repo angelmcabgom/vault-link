@@ -12,6 +12,6 @@
     },
     "workspaceFolder": "/app",
     "mounts": [
-        "source=${localWorkspaceFolder},target=/app,type=bind"
+        "source=${localWorkspaceFolder},target=/app,type=bind,consistency=cached"
     ]
 }
