@@ -1,5 +1,17 @@
 {
     "name": "vault-link",
     "dockerFile": "../Dockerfile",
-    "workspaceFolder": "/app"
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "dbaeumer.vscode-eslint",
+                "yoavbls.pretty-ts-errors",
+                "esbenp.prettier-vscode"
+            ]
+        }
+    },
+    "workspaceFolder": "/app",
+    "mounts": [
+        "source=${localWorkspaceFolder},target=/app,type=bind"
+    ]
 }
