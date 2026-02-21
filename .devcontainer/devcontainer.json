@@ -15,7 +15,16 @@
   "mounts": [
     "source=${localWorkspaceFolder},target=/app,type=bind,consistency=cached"
   ],
+  // sets the develpoment env and makes nest cli available
   "containerEnv": {
-    "NODE_ENV": "development"
-  }
+    "NODE_ENV": "development",
+    "PATH": "/app/node_modules/.bin:${env:PATH}"
+  },
+  // the network comes from the docker compose so if you havent ran it you need to
+  "runArgs": [
+    "--network",
+    "vault-link_default",
+    "--env-file",
+    "${localWorkspaceFolder}/envs/.env.local"
+  ]
 }
