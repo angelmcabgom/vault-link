@@ -6,7 +6,8 @@
       "extensions": [
         "dbaeumer.vscode-eslint",
         "yoavbls.pretty-ts-errors",
-        "esbenp.prettier-vscode"
+        "esbenp.prettier-vscode",
+        "mhutchie.git-graph"
       ]
     }
   },
