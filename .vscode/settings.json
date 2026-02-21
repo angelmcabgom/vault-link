@@ -5,5 +5,49 @@
     "source.fixAll.eslint": "explicit"
   },
   "typescript.tsdk": "node_modules/typescript/lib",
-  "eslint.workingDirectories": [{ "mode": "auto" }]
+  "eslint.workingDirectories": [
+    {
+      "mode": "auto"
+    }
+  ],
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "editor.tokenColorCustomizations": {
+    "[Quiet Light]": {
+      "textMateRules": [
+        {
+          "name": "NestJS Decorators",
+          "scope": [
+            "meta.decorator",
+            "punctuation.decorator",
+            "variable.annotation",
+            "meta.declaration.annotation"
+          ],
+          "settings": {
+            "fontStyle": "italic"
+          }
+        },
+        {
+          "name": "Types and Interfaces",
+          "scope": [
+            "entity.name.type",
+            "entity.name.type.class",
+            "support.type",
+            "support.class"
+          ],
+          "settings": {
+            "fontStyle": "italic"
+          }
+        },
+        {
+          "name": "Method Parameters",
+          "scope": "variable.parameter",
+          "settings": {
+            "fontStyle": "italic"
+          }
+        }
+      ]
+    }
+  }
 }
