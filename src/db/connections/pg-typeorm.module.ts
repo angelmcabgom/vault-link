@@ -1,6 +1,7 @@
 import { Logger, Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { LinkEntity } from '../models/link.entity';
 
 @Module({
   imports: [
@@ -16,13 +17,13 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
         return {
           type: 'postgres', // Specify the dialect as 'postgres'
-          host: env.get<string>('DB_HOST'),
-          database: env.get<string>('DB_NAME'),
-          port: env.get<number>('DB_PORT') || 5432,
-          username: env.get<string>('DB_USER'),
-          password: env.get<string>('DB_PASS'),
+          host: env.getOrThrow<string>('DB_HOST'),
+          database: env.getOrThrow<string>('DB_NAME'),
+          port: env.getOrThrow<number>('DB_PORT') || 5432,
+          username: env.getOrThrow<string>('DB_USER'),
+          password: env.getOrThrow<string>('DB_PASS'),
           // It's a list of entity classes.
-          entities: [],
+          entities: [LinkEntity],
           extra: {
             pool: {
               max: 5,
@@ -30,7 +31,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
               acquireTimeoutMillis: 100000,
             },
           },
-          synchronize: false,
+          synchronize: env.getOrThrow<boolean>('TYPEORM_SYNC'),
           logging: false,
         };
       },
