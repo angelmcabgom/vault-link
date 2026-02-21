@@ -2,6 +2,10 @@
 # Using Node 22 (LTS) - more stable than 24 for now!
 FROM node:22-alpine AS builder
 
+# Set up envs
+ENV PNPM_HOME="/root/.local/share/pnpm"
+ENV PATH="${PNPM_HOME}:${PATH}"
+
 WORKDIR /app
 
 # Install git
@@ -16,6 +20,7 @@ COPY package*.json pnpm-lock.yaml* ./
 # 3. Install dependencies
 # --frozen-lockfile ensures the build is reproducible
 RUN pnpm install --frozen-lockfile
+RUN pnpm add -g @nestjs/cli
 
 # 4. Copy rest of the application
 COPY . .
