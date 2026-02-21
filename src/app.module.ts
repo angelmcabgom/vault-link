@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { UrlEncoderModule } from './url-encoder/url-encoder.module';
+import { UrlCodecModule } from './url-encoder/url-codec.module';
 
 @Module({
-  imports: [UrlEncoderModule],
+  imports: [UrlCodecModule],
   controllers: [AppController],
   providers: [AppService],
 })
