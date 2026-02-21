@@ -27,7 +27,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
             pool: {
               max: 5,
               min: 1,
-              acquireTimeoutMillis: 1000000,
+              acquireTimeoutMillis: 100000,
             },
           },
           synchronize: false,
