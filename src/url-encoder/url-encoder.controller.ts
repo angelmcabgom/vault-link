@@ -1,4 +1,4 @@
-import { Controller, Get, Logger, Req, Res } from '@nestjs/common';
+import { Controller, Get, Logger, Query, Res } from '@nestjs/common';
 import type { Response } from 'express';
 import { UrlToEncodeRequestDTO } from './dto/UrlToEncodeRequest.dto';
 import { UrlEncoderService } from './url-encoder.service';
@@ -10,7 +10,7 @@ export class UrlEncoderController {
   constructor(private readonly urlEncoderService: UrlEncoderService) {}
 
   @Get('encode-url')
-  encodeUrl(@Req() req: UrlToEncodeRequestDTO, @Res() res: Response) {
+  encodeUrl(@Query() req: UrlToEncodeRequestDTO, @Res() res: Response) {
     try {
       const encodedUrl = this.urlEncoderService.encoderUrl(req.url);
 
