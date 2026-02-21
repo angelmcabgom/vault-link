@@ -49,5 +49,41 @@
         }
       ]
     }
-  }
+  },
+  "material-icon-theme.files.customClones": [
+    {
+      "name": "strategy-icon-custom",
+      "base": "nest",
+      "color": "#FD6E25",
+      "fileExtensions": ["strategy.ts"]
+    },
+    {
+      "name": "data-entity-custom",
+      "base": "database",
+      "color": "#4CAF50",
+      "fileExtensions": ["entity.ts", "model.ts"]
+    },
+    {
+      "name": "data-transfer-object",
+      "base": "json",
+      "color": "#89D86F",
+      "fileExtensions": ["dto.ts"]
+    },
+    {
+      "name": "data-acess-custom",
+      "base": "json",
+      "color": "#1E88E5",
+      "fileExtensions": ["dao.ts"]
+    }
+  ],
+  "material-icon-theme.folders.customClones": [
+    {
+      "name": "users-admin",
+      "base": "class",
+      "color": "light-green-500",
+      "lightColor": "light-green-700",
+      "folderNames": ["entities"],
+      "rootFolderNames": ["entities"]
+    }
+  ]
 }
