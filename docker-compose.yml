@@ -1,0 +1,25 @@
+services:
+# Actual db, uses named volume for data persistance even if container goes down
+  db:
+    image: postgres:15-alpine
+    container_name: vault-db
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    ports:
+      - "5432:5432" # Maps to your host so you can use external DB tools
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+# Just the admin panel
+  adminer:
+    image: adminer:latest
+    container_name: vault-adminer
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+
+# Named volume declaration: persists data
+volumes:
+  pgdata:
