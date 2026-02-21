@@ -12,8 +12,9 @@ RUN mkdir -p /app && chown -R node:node /app
 
 WORKDIR /app
 
-# Switch to the non-root user
-USER node
+# Switch to the non-root user, this achieves UID party between physical host
+# user id and docker host user id, so there will be no permissions conflict 
+USER node 
 
 # 2. Copy files (ensuring they are owned by node)
 COPY --chown=node:node package*.json pnpm-lock.yaml* ./
