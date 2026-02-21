@@ -60,4 +60,5 @@ report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 .pnpm-store
 
 # envs
-envs/local.env
+envs/.env.local
+envs/.env.production
