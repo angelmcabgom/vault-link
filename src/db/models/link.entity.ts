@@ -5,7 +5,7 @@ import {
   CreateDateColumn,
 } from 'typeorm';
 
-@Entity('links')
+@Entity('links') // Name of the table in Postgres
 export class LinkEntity {
   @PrimaryGeneratedColumn()
   id: number;
