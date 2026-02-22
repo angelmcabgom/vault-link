@@ -25,74 +25,122 @@
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
-## Project setup
+# vault-link
+
+Simple NestJS service for link shortening/redirecting (starter).
+
+## Quick Start
+
+- **Install dependencies**
 
 ```bash
-$ pnpm install
+pnpm install
 ```
 
-## Compile and run the project
+- **Prepare environment** (copy example and edit as needed)
 
 ```bash
-# development
-$ pnpm run start
-
-# watch mode
-$ pnpm run start:dev
-
-# production mode
-$ pnpm run start:prod
+cp envs/.env.local .env
+# Edit .env to set DB_PASS or other values
 ```
 
-## Run tests
+- **Run database and admin UI with Docker Compose**
 
 ```bash
-# unit tests
-$ pnpm run test
-
-# e2e tests
-$ pnpm run test:e2e
-
-# test coverage
-$ pnpm run test:cov
+docker-compose up -d
+# Adminer will be available at http://localhost:8080
 ```
 
-## Deployment
-
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+- **Run the app (development)**
 
 ```bash
-$ pnpm install -g @nestjs/mau
-$ mau deploy
+pnpm run start:dev
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+The app defaults to the port in `envs/.env.example` (`PORT=3000`).
 
-## Resources
+## Prerequisites
 
-Check out a few resources that may come in handy when working with NestJS:
+- Node.js (recommend >= 18)
+- pnpm (or use `npm`/`yarn` if you prefer; scripts shown use `pnpm`)
+- Docker & Docker Compose (optional, for running the database locally)
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+## Environment
 
-## Support
+This repository includes a few example env files under the `envs/` folder. Copy or adapt one to the project root as `.env` before running the app. Example variables you may need to set:
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+- `PORT` — application port (default 3000)
+- `DB_HOST`, `DB_PORT`, `DB_NAME`, `DB_USER`, `DB_PASS` — PostgreSQL connection
+- `TYPEORM_SYNC` — TypeORM sync option (useful for development)
 
-## Stay in touch
+Files provided:
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+- `envs/.env.example` — minimal example
+- `envs/.env.local` — local development example (contains `DB_PASS` placeholder)
+- `envs/.env.production` — production example
 
-## License
+Tip: Docker Compose in this repo reads environment variables from the shell or a `.env` file in the project root. Copy `envs/.env.local` to `.env` and edit credentials before running `docker-compose up`.
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+## Scripts
+
+Available npm scripts (from `package.json`):
+
+- `pnpm run start` — start the app (default)
+- `pnpm run start:dev` — start in watch/dev mode
+- `pnpm run start:prod` — start built app from `dist/`
+- `pnpm run build` — compile TypeScript
+- `pnpm run lint` — run ESLint and fix issues
+- `pnpm run format` — run Prettier
+- `pnpm run test` — unit tests
+- `pnpm run test:e2e` — e2e tests
+
+## Database
+
+The included `docker-compose.yml` runs a Postgres service (`vault-db`) and Adminer for DB management. Default connection values in `envs/.env.local` are:
+
+- `DB_HOST=db`
+- `DB_NAME=vault_link_db`
+- `DB_PORT=5432`
+- `DB_USER=vault_admin`
+
+Set `DB_PASS` in your `.env` before starting containers.
+
+## Testing & Linting
+
+Run tests:
+
+```bash
+pnpm run test
+pnpm run test:e2e
+```
+
+Lint and format:
+
+```bash
+pnpm run lint
+pnpm run format
+```
+
+## Building & Production
+
+Build the project and run the compiled output:
+
+```bash
+pnpm run build
+pnpm run start:prod
+```
+
+## Next steps
+
+- Review `src/config` and `src/db` to confirm TypeORM settings and migrations (if you add them).
+- If you want CI/CD, add a workflow to build, test, and deploy the `dist/` artifact.
+
+If you'd like, I can also:
+
+- Add a small `Makefile` or npm script to copy envs automatically.
+- Add a short section explaining the HTTP endpoints and Swagger docs location (if enabled).
+
+---
+
+For implementation details, see the `src/` folder (controllers, services, and modules).
+
