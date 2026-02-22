@@ -17,4 +17,15 @@ export class LinksService {
       throw new Error(err);
     }
   }
+
+  async getLink(slug: string) {
+    try {
+      const link = await this.linksDao.retrieveLinkDb(slug);
+
+      return link;
+    } catch (err) {
+      this.logger.error(err);
+      throw new Error(err);
+    }
+  }
 }

@@ -10,7 +10,7 @@ export class LinkEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ unique: true })
+  @Column({})
   originalUrl: string;
 
   @Column({ unique: true, nullable: true })

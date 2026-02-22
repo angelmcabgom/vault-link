@@ -19,10 +19,14 @@ export class LinksDao {
 
   async insertLinkDb(urlToInsert: string) {
     try {
+      // create entry with available data
       const newLink = this.linkEntity.create({ originalUrl: urlToInsert });
       const insertedLinkId = await this.linkEntity.save(newLink);
 
+      // update entry after slug is available
       const slug = Base62Utils.base62encoder(insertedLinkId.id);
+      insertedLinkId.slug = slug;
+      await this.linkEntity.save(insertedLinkId);
 
       if (!slug) {
         throw new EmptyResultError(
@@ -31,6 +35,30 @@ export class LinksDao {
       }
 
       return slug;
+    } catch (err) {
+      this.logger.error(err);
+      throw new QueryFailedError(FunctionsHelper.getFunctionName(), [], err);
+    }
+  }
+
+  async retrieveLinkDb(slug: string) {
+    try {
+      const link = await this.linkEntity.findOne({
+        select: {
+          originalUrl: true,
+        },
+        where: {
+          slug: slug,
+        },
+      });
+
+      if (!link) {
+        throw new EmptyResultError(
+          `Resultado de query vacio en ${FunctionsHelper.getFunctionName()}`,
+        );
+      }
+
+      return link;
     } catch (err) {
       this.logger.error(err);
       throw new QueryFailedError(FunctionsHelper.getFunctionName(), [], err);
