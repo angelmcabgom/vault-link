@@ -1,8 +1,9 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { LinkEntity } from 'src/db/models/link.entity';
+import { LinkEntity } from 'src/db/entities/link.entity';
 import { EmptyResultError } from 'src/errors/empty.error';
 import { FunctionsHelper } from 'src/helpers/functions.helper';
+import { Base62Utils } from 'src/utils/base62.util';
 import { QueryFailedError, Repository } from 'typeorm';
 
 @Injectable()
@@ -16,17 +17,48 @@ export class LinksDao {
     private linkEntity: Repository<LinkEntity>,
   ) {}
 
-  async getUserByEmail() {
+  async insertLinkDb(urlToInsert: string) {
     try {
-      const allUsers = await this.linkEntity.findOne({});
+      // create entry with available data
+      const newLink = this.linkEntity.create({ originalUrl: urlToInsert });
+      const insertedLinkId = await this.linkEntity.save(newLink);
 
-      if (!allUsers) {
+      // update entry after slug is available
+      const slug = Base62Utils.base62encoder(insertedLinkId.id);
+      insertedLinkId.slug = slug;
+      await this.linkEntity.save(insertedLinkId);
+
+      if (!slug) {
         throw new EmptyResultError(
           `Resultado de query vacio en ${FunctionsHelper.getFunctionName()}`,
         );
       }
 
-      return allUsers;
+      return slug;
+    } catch (err) {
+      this.logger.error(err);
+      throw new QueryFailedError(FunctionsHelper.getFunctionName(), [], err);
+    }
+  }
+
+  async retrieveLinkDb(slug: string) {
+    try {
+      const link = await this.linkEntity.findOne({
+        select: {
+          originalUrl: true,
+        },
+        where: {
+          slug: slug,
+        },
+      });
+
+      if (!link) {
+        throw new EmptyResultError(
+          `Resultado de query vacio en ${FunctionsHelper.getFunctionName()}`,
+        );
+      }
+
+      return link;
     } catch (err) {
       this.logger.error(err);
       throw new QueryFailedError(FunctionsHelper.getFunctionName(), [], err);

@@ -1,7 +1,7 @@
 import { Logger, Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { LinkEntity } from '../models/link.entity';
+import { LinkEntity } from '../entities/link.entity';
 
 @Module({
   imports: [
