@@ -1,12 +1,20 @@
 import { Injectable, Logger } from '@nestjs/common';
+import { LinksDao } from './dao/links.dao';
 
 @Injectable()
 export class LinksService {
-    private readonly logger = new Logger(LinksService.name)
+  private readonly logger = new Logger(LinksService.name);
 
-    constructor () {
+  constructor(private readonly linksDao: LinksDao) {}
 
+  async manageLinkShorten(urlToShorten: string) {
+    try {
+      const slug = await this.linksDao.insertLinkDb(urlToShorten);
+
+      return slug;
+    } catch (err) {
+      this.logger.error(err);
+      throw new Error(err);
     }
-
-    
+  }
 }
