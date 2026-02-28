@@ -12,6 +12,7 @@
       ]
     }
   },
+  "initializeCommand": "docker compose --env-file envs/.env.local up -d",
   "workspaceFolder": "/app",
   "mounts": [
     "source=${localWorkspaceFolder},target=/app,type=bind,consistency=cached"
