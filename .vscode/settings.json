@@ -99,6 +99,13 @@
       "color": "light-blue-500",
       "lightColor": "light-blue-500",
       "folderNames": ["dto"]
+    },
+     {
+      "name": "health",
+      "base": "folder-plugin",
+      "color": "#9C27B0",
+      "lightColor": "light-pink-500",
+      "folderNames": ["health"]
     }
   ]
 }
